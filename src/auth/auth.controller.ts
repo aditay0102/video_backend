@@ -1,17 +1,13 @@
-import { Body, Controller,Post } from '@nestjs/common';
+import { Body, Controller,HttpCode,HttpStatus,Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/loginUser.dto';
 import { RegisterDto } from './dto/registerUser.dto';
-import {
-  UploadedFile,
-  UseInterceptors,
-  ParseFilePipeBuilder,
-  HttpStatus,
-} from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { type } from 'os';
 
 
+// 200 OK: The request was successful.
+// 201 Created: The request was successful, and a new resource was created.
+// 400 Bad Request: The server could not understand the request.
+// 404 Not Found: The requested resource could not be found.
 
 
 @Controller('auth')
@@ -24,6 +20,7 @@ export class AuthController {
 
 
   @Post('register')
+  @HttpCode(HttpStatus.ACCEPTED)
   async register(@Body()  registerUserDto: RegisterDto){
     
     const  result = await this.authService.registerUser(registerUserDto);
@@ -31,18 +28,14 @@ export class AuthController {
   }
 
 
+  
   @Post('login')
-  async login(@Body() loginUserDto: LoginDto) {
-    const result = await this.authService.loginUser(loginUserDto);
+  @HttpCode(HttpStatus.ACCEPTED)
+  async logion(@Body()  loginUserDto: LoginDto){
+    const  result = await this.authService.loginUser(loginUserDto);
     return result;
   }
-
   
-@Post('upload')
-@UseInterceptors(FileInterceptor('file'))
-uploadFile(@UploadedFile() file: Express.Multer.File) {
-  console.log(file);
-}
- 
+
 
 }

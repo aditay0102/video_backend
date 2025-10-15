@@ -18,8 +18,14 @@ export class User {
   @Prop({required: true})
   password: string;
 
-  @Prop({default: Role.student})
+  @Prop({default: Role.defaultuser})
   role: string;
+
+  @Prop()
+  CreatedAt: Date;
+
+  @Prop({default:'' })
+  updatedAt: Date;
 
   @Prop({ type: Array, default: () => [] }) readonly myProp!: any[];
 
