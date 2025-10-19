@@ -15,8 +15,7 @@ export class UserService {
         try{
 
             return await this.UserModel.create({
-                fname: registerUserDto.fname,
-                lname: registerUserDto.lname,
+                username: registerUserDto.username,
                 email: registerUserDto.email,
                 password: registerUserDto.password
             })

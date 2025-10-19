@@ -49,7 +49,10 @@ export class AuthService {
         const payload = {sub: id };
         const token =  await this.jwtService.signAsync(payload) 
         console.log(token)
-        return {access_token : token};
+        return {access_token : token,
+          status: 200,
+          message: "account created"
+        };
     }
 
 
@@ -63,7 +66,7 @@ export class AuthService {
     
       if (!user) {
         
-        return { status: 400, message: "Email not found" };
+        return { status: 401  , message: "Email not found" };
       }
       
       let userpassword;
@@ -80,7 +83,10 @@ export class AuthService {
       const passwordMatch = await bcrypt.compare(password, userpassword);
 
       if(!passwordMatch){
-        return "passwrod is wrong";
+        return  {
+          status: 401,
+          message: "wrong password"
+        }
         console.log("wrong password")
       }
       
@@ -105,6 +111,7 @@ export class AuthService {
       return {
         status: 200,
         access_token: this.jwtService.sign(payload),
+        message: "log in successful"
       };
     }
     
