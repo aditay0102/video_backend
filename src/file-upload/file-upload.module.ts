@@ -1,19 +1,32 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { FileUploadController } from './file-upload.controller';
 import { FileUploadService } from './file-upload.service'
-import { MulterError } from 'multer';
 import { MulterModule } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Video,VideoSchema } from './schema/vider.schema';
+import { authMIddleware } from 'src/middleware/auth.middleware';
+
 
 @Module({
     imports: [
         MulterModule.register({
           
         }),
+        
+        MongooseModule.forFeature([{ name: Video.name, schema: VideoSchema }]),
+                
       ],
       controllers: [FileUploadController],
       providers: [FileUploadService],
-      exports: [FileUploadService]
+      exports: [MongooseModule]
+    
+      
     
 })
-export class FileUploadModule {}
+export class FileUploadModule implements NestModule{
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+    .apply(authMIddleware)
+    .forRoutes(FileUploadController)
+  }
+}

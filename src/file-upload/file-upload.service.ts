@@ -1,14 +1,21 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable,NestMiddleware } from '@nestjs/common';
+import { FileDto } from './dto/file.dto';
+import { Model } from 'mongoose';
+import { Video } from './schema/vider.schema';
+import { InjectModel } from '@nestjs/mongoose';
 
 
 @Injectable()
 export class FileUploadService {
-  handleFile(file: Express.Multer.File) {
-    // handle saving, processing, or returning file info
-    
-    console.log('File received in service:', file);
 
-    return { message: 'File uploaded successfully' };
+  handleFile(videoDto : FileDto) {
+  
+    console.log('File received in service:', videoDto);
+    
+    return { message: 'File uploaded successfully',status:200 };
     
   }
+
 }
+
+

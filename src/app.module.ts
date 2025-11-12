@@ -13,6 +13,7 @@ import { FileUploadService } from './file-upload/file-upload.service';
 import { FileUploadModule } from './file-upload/file-upload.module';
 
 
+
 @Module({
   imports: [
     FileUploadModule,
@@ -20,7 +21,7 @@ import { FileUploadModule } from './file-upload/file-upload.module';
     UserModule,
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGODB_URL as string),
-    FileUploadModule
+  
   ],
   controllers: [AppController, FileUploadController],
   providers: [AppService, FileUploadService],
