@@ -2,6 +2,7 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { RegisterDto } from 'src/auth/dto/registerUser.dto';
 import { LoginDto } from 'src/auth/dto/loginUser.dto';
+import { userIDto } from 'src/file-upload/dto/userID.dto';
 import { User } from './schemas/user.schema';
 import { Model } from 'mongoose';
 
@@ -35,6 +36,17 @@ export class UserService {
         try{
             const {email} = loginUserDto;
             const user =  await this.UserModel.findOne({email});
+            return user;
+        }catch(err){
+            console.log(err)
+            return err
+        }
+    }
+
+    async findById(userIDDto : userIDto){
+        try{
+            const id = userIDDto;
+            const user =  await this.UserModel.findById(id);
             return user;
         }catch(err){
             console.log(err)

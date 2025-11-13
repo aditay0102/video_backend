@@ -2,11 +2,9 @@ import { IsEmail,IsNotEmpty,IsString} from "class-validator";
 
 export class FileDto{
     
-    @IsString()
-    @IsNotEmpty()
-    filename: string;
+    @IsString() 
+    title: string;
 
-    @IsNotEmpty()
-    fileID: string;
+
     
 }

@@ -5,6 +5,8 @@ import { MulterModule } from '@nestjs/platform-express';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Video,VideoSchema } from './schema/vider.schema';
 import { authMIddleware } from 'src/middleware/auth.middleware';
+import { UserService } from 'src/user/user.service';
+import { UserModule } from 'src/user/user.module';
 
 
 @Module({
@@ -14,6 +16,7 @@ import { authMIddleware } from 'src/middleware/auth.middleware';
         }),
         
         MongooseModule.forFeature([{ name: Video.name, schema: VideoSchema }]),
+        UserModule
                 
       ],
       controllers: [FileUploadController],
